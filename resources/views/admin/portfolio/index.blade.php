@@ -70,3 +70,5 @@
         @endif
     </div>
 @endsection
+
+{{-- linguist trigger --}}

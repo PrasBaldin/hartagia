@@ -20,3 +20,5 @@
         </button>
     </form>
 </nav>
+
+{{-- linguist trigger --}}

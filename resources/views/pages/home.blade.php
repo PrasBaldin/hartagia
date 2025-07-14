@@ -242,3 +242,5 @@
         <div class="hidden xl:!block absolute bottom-10 right-10 w-24 h-24 bg-green-700/40 rounded-full z-10" @aos('fade-up', 100)></div>
     </section>
 @endsection
+
+{{-- linguist trigger --}}

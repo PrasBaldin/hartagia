@@ -146,3 +146,5 @@
         mobileOverlay.addEventListener('click', closeMobileMenu);
     </script>
 </header>
+
+{{-- linguist trigger --}}

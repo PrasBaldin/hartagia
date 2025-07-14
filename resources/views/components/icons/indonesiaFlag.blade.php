@@ -4,3 +4,5 @@
     <rect x="-1" y="75" fill="#FFFFFF" width="152" height="76" />
     <path opacity="0.1" d="M151,160H66c0,0,60.501-26.039,60.501-85C126.501,16.207,66-9.999,66-9.999h85V160z" />
 </svg>
+
+{{-- linguist trigger --}}

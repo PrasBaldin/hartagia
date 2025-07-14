@@ -1,7 +1,23 @@
-* text=auto
-resources/views/* linguist-language=PHP
-app/**/* linguist-language=PHP
-config/* linguist-language=PHP
-public/js/* linguist-language=JavaScript
-public/css/* linguist-language=CSS
+# 📦 Deteksi Bahasa Pemrograman
+*.php linguist-language=PHP
+*.blade.php linguist-language=PHP
+
+# 🎨 Deteksi Frontend Assets
+public/css/** linguist-language=CSS
+public/js/** linguist-language=JavaScript
+
+# 💡 Tambahan untuk folder lain (jika ada CSS/JS di resources)
+resources/css/** linguist-language=CSS
+resources/js/** linguist-language=JavaScript
+
+# ⚠️ Pastikan tidak dianggap 'vendored'
+public/css/** linguist-vendored=false
+public/js/** linguist-vendored=false
+resources/css/** linguist-vendored=false
+resources/js/** linguist-vendored=false
+
+# 🔐 Files yang tidak perlu ditampilkan di source GitHub
 CHANGELOG.md export-ignore
+
+# 📄 Normalize line ending
+* text=auto

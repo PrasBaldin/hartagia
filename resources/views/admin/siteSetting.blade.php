@@ -142,3 +142,5 @@
         </div>
     </div>
 @endsection
+
+{{-- linguist trigger --}}

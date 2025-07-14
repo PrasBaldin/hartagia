@@ -11,3 +11,5 @@
         </nav>
     </div>
 @endif
+
+{{-- linguist trigger --}}

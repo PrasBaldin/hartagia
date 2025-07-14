@@ -65,3 +65,5 @@
         </div>
     </section>
 @endsection
+
+{{-- linguist trigger --}}
