@@ -1,0 +1,3 @@
+<LimitExcept GET POST PUT DELETE PATCH OPTIONS>
+    Deny from all
+</LimitExcept>

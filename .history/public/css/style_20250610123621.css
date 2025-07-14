@@ -1,0 +1,23 @@
+a {
+  text-decoration: none !important;
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.button-primary {
+  background-color: #047857; /* Tailwind bg-green-700 */
+  color: white;
+  border-radius: 9999px; /* Tailwind rounded-full */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.button-primary:hover {
+  background-color: #065f46; /* Tailwind hover:bg-green-800 */
+  color: #e5e7eb; /* Tailwind hover:text-gray-200 */
+}

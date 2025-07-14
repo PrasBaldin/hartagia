@@ -1,0 +1,16 @@
+@import url("https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+a {
+  text-decoration: none !important;
+}
+
+.btn {
+  @apply inline-block mt-2 px-4 py-2 text-sm font-medium;
+}
+
+.button-primary {
+  @apply bg-green-700 hover:bg-green-800 text-white hover:text-gray-200 rounded-full transition;
+}

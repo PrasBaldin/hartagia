@@ -1,0 +1,7 @@
+* text=auto
+resources/views/* linguist-language=PHP
+app/**/* linguist-language=PHP
+config/* linguist-language=PHP
+public/js/* linguist-language=JavaScript
+public/css/* linguist-language=CSS
+CHANGELOG.md export-ignore

@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.button-primary {
+  @apply bg-green-700 hover:bg-green-800 text-white hover:text-gray-200 rounded-full transition;
+}

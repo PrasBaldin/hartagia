@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="{{ app()->getLocale() }}">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'Laravel') }}</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x/dist/cdn.min.js"></script>
+
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+</head>
+
+<body>
+    @include('layouts.partials.header')
+    <div class="flex">
+        @include('layouts.partials.sidebar')
+
+        <!-- Konten Utama -->
+        <main class="flex-1 p-6 bg-gray-100">
+            <!-- Breadcrumb -->
+            @if(Request::path() !== 'admin/dashboard')
+            <div class="flex items-center p-8 mb-4">
+                <nav class="flex" aria-label="breadcrumb">
+                    <ol class="inline-flex items-center space-x-1">
+                        <li class="inline-flex items-center">
+                            <a href="{{ route('admin.dashboard') }}" class="text-gray-500 hover:text-gray-700 transition">Admin</a>
+                        </li>
+                        @yield('breadcrumb')
+                    </ol>
+                </nav>
+            </div>
+            @endif
+            @yield('content')
+            @include('layouts.partials.sidebar')
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>
+
+    <script>
+        // Toggle Sidebar
+        function toggleSidebar() {
+            let sidebar = document.getElementById("sidebar");
+            let sidebarOverlay = document.getElementById("sidebarOverlay");
+            let menuItems = document.querySelectorAll(".menu-text");
+            let menuLinks = document.querySelectorAll("#sidebarMenu a");
+
+            // Toggle sidebar width
+            sidebar.classList.toggle("w-60");
+            sidebar.classList.toggle("w-16");
+            sidebarOverlay.classList.toggle("w-60");
+            sidebarOverlay.classList.toggle("w-16");
+
+            // Toggle visibility of menu items and alignment of links
+            let isMinimized = sidebar.classList.contains("w-16");
+            menuItems.forEach(item => item.classList.toggle("hidden", isMinimized));
+            menuLinks.forEach(link => link.classList.toggle("justify-center", isMinimized));
+            menuLinks.forEach(link => link.classList.toggle("pt-4", isMinimized));
+        }
+
+
+        // Konfirmasi Hapus SweetAlert
+        function confirmDelete(id) {
+            Swal.fire({
+                title: 'Apakah kamu yakin?',
+                text: 'Data tidak bisa dikembalikan setelah dihapus!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('delete-form-' + id).submit();
+                }
+            });
+        }
+
+        // Konfirmasi Logout SweetAlert
+        function confirmLogout() {
+            Swal.fire({
+                title: "Yakin ingin logout?",
+                text: "Anda harus login kembali untuk mengakses halaman admin!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Ya, logout!",
+                cancelButtonText: "Batal"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById("logout-form").submit();
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

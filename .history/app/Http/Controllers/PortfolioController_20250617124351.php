@@ -1,0 +1,68 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
+use App\Portfolio;
+use App\Translation;
+
+class PortfolioController extends Controller
+{
+    public function create()
+    {
+        return view('admin.portfolioCreate');
+    }
+
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'project_name_id' => 'required|string|max:255',
+            'project_name_en' => 'required|string|max:255',
+            'project_desc_id' => 'required|string',
+            'project_desc_en' => 'required|string',
+            'project_content_id' => 'required|string',
+            'project_content_en' => 'required|string',
+            'image_1' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        $imagePath = null;
+
+        try {
+            // Simpan gambar hanya jika validasi berhasil
+            if ($request->hasFile('image_1')) {
+                $filename = time() . '_' . $request->file('image_1')->getClientOriginalName();
+                $imagePath = $request->file('image_1')->storeAs('portfolio_images', $filename, 'public');
+            }
+
+            // Simpan data utama portfolio
+            $portfolio = Portfolio::create([
+                'image_1' => $imagePath
+            ]);
+
+            // Simpan terjemahan ke tabel translations
+            Translation::insert([
+                ['table_name' => 'portfolios', 'column_name' => 'project_name', 'row_id' => $portfolio->id, 'language' => 'id', 'translated_text' => $request->project_name_id],
+                ['table_name' => 'portfolios', 'column_name' => 'project_name', 'row_id' => $portfolio->id, 'language' => 'en', 'translated_text' => $request->project_name_en],
+                ['table_name' => 'portfolios', 'column_name' => 'project_desc', 'row_id' => $portfolio->id, 'language' => 'id', 'translated_text' => $request->project_desc_id],
+                ['table_name' => 'portfolios', 'column_name' => 'project_desc', 'row_id' => $portfolio->id, 'language' => 'en', 'translated_text' => $request->project_desc_en],
+                ['table_name' => 'portfolios', 'column_name' => 'project_content', 'row_id' => $portfolio->id, 'language' => 'id', 'translated_text' => $request->project_content_id],
+                ['table_name' => 'portfolios', 'column_name' => 'project_content', 'row_id' => $portfolio->id, 'language' => 'en', 'translated_text' => $request->project_content_en]
+            ]);
+
+            return redirect()->route('admin.portfolio.create')->with('success', 'Portfolio berhasil ditambahkan!');
+        } catch (\Exception $e) {
+            // // Jika terjadi error, hapus gambar yang sudah terupload
+            // if ($imagePath) {
+            //     Storage::disk('public')->delete($imagePath);
+            // }
+
+            return back()->withErrors(['error' => 'Gagal menyimpan data.'])->withInput();
+        }
+    }
+}

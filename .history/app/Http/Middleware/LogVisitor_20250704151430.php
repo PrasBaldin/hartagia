@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Http\Middleware;
+
+use Closure;
+
+class LogVisitor
+{
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
+     */
+    public function handle($request, Closure $next)
+    {
+        $ip = '110.138.93.53'; // Default IP for testing, replace with $request->ip() in production
+        $response = @file_get_contents("http://ip-api.com/json/{$ip}");
+        $geo = json_decode($response);
+
+        $country = $geo && $geo->status === 'success' ? $geo->country : 'Unknown';
+        $city = $geo && $geo->status === 'success' ? $geo->city : 'Unknown';
+
+        \DB::table('visitors')->insert([
+            'ip_address' => $ip,
+            'user_agent' => $request->header('User-Agent'),
+            'url' => $request->fullUrl(),
+            'country' => $country,
+            'city' => $city,
+            'visited_at' => \Carbon\Carbon::now(),
+        ]);
+
+        return $next($request);
+    }
+}
