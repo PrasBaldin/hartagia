@@ -3,7 +3,6 @@
 @section('content')
     <div class="lg:max-w-4xl mx-auto px-4 py-6">
 
-        {{-- Breadcrumb --}}
         <div class="w-full lg:max-w-4xl mb-4 text-center">
             <h1 class="text-5xl font-bold mb-2">Dashboard</h1>
             <p class="text-xl text-gray-500 mb-10">Selamat datang di halaman admin.</p>
@@ -186,8 +185,7 @@
                 </div>
             </div>
         </div>
-        
-        {{-- Subtitle --}}
+
         <div class="mb-4 w-full lg:max-w-4xl">
             <h2 class="text-3xl font-bold mb-0">Kelola Konten Website</h2>
             <p class="text-lg text-gray-600">Akses berbagai fitur untuk mengelola website Anda.</p>
